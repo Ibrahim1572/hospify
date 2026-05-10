@@ -1,7 +1,21 @@
 import axios from 'axios';
 
+// In production (Vercel), use relative URLs since frontend and backend are on same domain
+// In development, use the local Flask server
+const getBaseURL = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  // Production: use relative URL (same domain)
+  if (import.meta.env.PROD) {
+    return '/api';
+  }
+  // Development: use local Flask server
+  return 'http://localhost:5000/api';
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+  baseURL: getBaseURL(),
   withCredentials: true, // Important for sending/receiving cookies (JWTs)
   headers: {
     'Content-Type': 'application/json',
@@ -21,7 +35,7 @@ api.interceptors.response.use(
       try {
         // Attempt to refresh the token using the refresh cookie
         await axios.post(
-          `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'}/auth/refresh`,
+          `${getBaseURL()}/auth/refresh`,
           {},
           { withCredentials: true }
         );

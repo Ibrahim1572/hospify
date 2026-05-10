@@ -1,0 +1,8 @@
+# Core Flask dependencies (minimal for Vercel Lambda)
+flask
+flask-jwt-extended
+flask-cors
+psycopg2-binary
+python-dotenv
+Werkzeug
+requests
