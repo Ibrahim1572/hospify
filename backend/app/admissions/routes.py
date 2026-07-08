@@ -15,7 +15,7 @@ def _row(cur):
     return [dict(zip(cols, r)) for r in cur.fetchall()]
 
 
-@admissions_bp.get("/")
+@admissions_bp.get("/", strict_slashes=False)
 @jwt_required_custom
 def list_admissions():
     status = request.args.get("status", "active")
