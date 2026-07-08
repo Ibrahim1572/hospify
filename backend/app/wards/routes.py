@@ -5,8 +5,7 @@ from flask import Blueprint, request, jsonify
 from ..db import get_db
 from ..auth.middleware import jwt_required_custom, roles_required
 
-wards_bp = Blueprint("wards", __name__)
-
+wards_bp = Blueprint("wards", __name__, strict_slashes=False)
 
 def _row(cur):
     cols = [d[0] for d in cur.description]
