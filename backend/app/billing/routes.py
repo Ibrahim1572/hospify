@@ -6,7 +6,8 @@ from flask_jwt_extended import get_jwt_identity
 from ..db import get_db
 from ..auth.middleware import jwt_required_custom, roles_required
 
-billing_bp = Blueprint("billing", __name__, strict_slashes=False)
+billing_bp = Blueprint("billing", __name__)
+billing_bp.strict_slashes = False
 
 def _row(cur):
     cols = [d[0] for d in cur.description]
