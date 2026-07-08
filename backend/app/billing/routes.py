@@ -7,14 +7,13 @@ from ..db import get_db
 from ..auth.middleware import jwt_required_custom, roles_required
 
 billing_bp = Blueprint("billing", __name__)
-billing_bp.strict_slashes = False
 
 def _row(cur):
     cols = [d[0] for d in cur.description]
     return [dict(zip(cols, r)) for r in cur.fetchall()]
 
 
-@billing_bp.get("/")
+@billing_bp.get("/", strict_slashes=False)
 @jwt_required_custom
 def list_bills():
     conn = get_db()
