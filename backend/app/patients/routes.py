@@ -9,7 +9,7 @@ from . import queries as q
 patients_bp = Blueprint("patients", __name__)
 
 
-@patients_bp.get("/")
+@patients_bp.get("/", strict_slashes=False here)
 @jwt_required_custom
 def list_patients():
     search = request.args.get("search")
