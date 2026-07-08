@@ -6,7 +6,6 @@ from ..db import get_db
 from ..auth.middleware import jwt_required_custom, roles_required
 
 wards_bp = Blueprint("wards", __name__)
-wards_bp.strict_slashes = False
 
 def _row(cur):
     cols = [d[0] for d in cur.description]
@@ -15,7 +14,7 @@ def _row(cur):
 
 # ── WARDS ──────────────────────────────────────────────────────────────────
 
-@wards_bp.get("/")
+@wards_bp.get("/", strict_slashes=False)
 @jwt_required_custom
 def list_wards():
     conn = get_db()
